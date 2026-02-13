@@ -4,7 +4,72 @@
   <meta charset="UTF-8" />
   <title>Will You Be My Valentine? 💘</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A playful Valentine question with a runaway No button." />
+  <meta name="description" content="A playful Valentine question with a runaway No button. Can you catch it?" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💘</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💘</text></svg>" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://radley-code.github.io/vals-day/" />
+  <meta property="og:title" content="Will You Be My Valentine? 💘" />
+  <meta property="og:description" content="A playful Valentine question with a runaway No button. Can you catch it?" />
+  <meta property="og:image" content="https://radley-code.github.io/vals-day/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Valentine's Day card with hearts and a runaway No button" />
+  <meta property="og:site_name" content="Valentine's Day Question" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://radley-code.github.io/vals-day/" />
+  <meta property="twitter:title" content="Will You Be My Valentine? 💘" />
+  <meta property="twitter:description" content="A playful Valentine question with a runaway No button. Can you catch it?" />
+  <meta property="twitter:image" content="https://radley-code.github.io/vals-day/og-image.png" />
+  <meta property="twitter:image:alt" content="Valentine's Day card with hearts and a runaway No button" />
+  
+  <!-- Additional SEO and sharing metadata -->
+  <meta name="author" content="Radley" />
+  <meta name="keywords" content="valentine, love, hearts, interactive, fun, game, proposal, romance" />
+  <meta name="theme-color" content="#ff4b6e" />
+  <meta name="msapplication-TileColor" content="#ff4b6e" />
+  <meta name="application-name" content="Valentine's Day Question" />
+  <meta name="apple-mobile-web-app-title" content="Valentine's Day Question" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://radley-code.github.io/vals-day/" />
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Will You Be My Valentine? 💘",
+    "description": "A playful Valentine question",
+    "url": "https://radley-code.github.io/vals-day/",
+    "image": "https://radley-code.github.io/vals-day/og-image.png",
+    "author": {
+      "@type": "Person",
+      "name": "Radley"
+    },
+    "datePublished": "2025-02-13",
+    "dateModified": "2025-02-13",
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Valentine's Day Question",
+      "url": "https://radley-code.github.io/vals-day/"
+    }
+  }
+  </script>
   <style>
     :root {
       --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 40%, #f6d5f7 70%, #fbc2eb 100%);
@@ -139,6 +204,7 @@
       color: var(--primary);
       border: 1px solid rgba(255, 75, 110, 0.35);
       position: relative;
+      z-index: 10;
     }
 
     #noBtn:hover {
@@ -252,7 +318,6 @@
 
     function moveNoButton(event) {
       const rect = noBtn.getBoundingClientRect();
-      const containerRect = document.body.getBoundingClientRect();
       
       // Get cursor position
       const cursorX = event.clientX || (window.innerWidth / 2);
@@ -278,14 +343,17 @@
         newY = buttonCenterY + (deltaY / distance) * moveDistance - rect.height / 2;
       } else {
         // Fallback to random position if cursor is exactly on button center
-        newX = Math.random() * (containerRect.width - rect.width);
-        newY = Math.random() * (containerRect.height - rect.height);
+        newX = Math.random() * (window.innerWidth - rect.width);
+        newY = Math.random() * (window.innerHeight - rect.height);
       }
       
-      // Keep button within viewport bounds
+      // Keep button strictly within viewport bounds
       const padding = 20;
-      newX = Math.max(padding, Math.min(newX, containerRect.width - rect.width - padding));
-      newY = Math.max(padding, Math.min(newY, containerRect.height - rect.height - padding));
+      const maxX = window.innerWidth - rect.width - padding;
+      const maxY = window.innerHeight - rect.height - padding;
+      
+      newX = Math.max(padding, Math.min(newX, maxX));
+      newY = Math.max(padding, Math.min(newY, maxY));
 
       noBtn.style.position = "fixed";
       noBtn.style.left = newX + "px";
